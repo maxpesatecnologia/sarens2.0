@@ -1,0 +1,43 @@
+<!doctype html>
+<html lang="pt-br">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>SARENS | Soluções em Guindastes e Equipamentos Pesados</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@400;600;700;800;900&family=Barlow:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <script src="https://unpkg.com/@phosphor-icons/web"></script>
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    <style>
+      .whatsapp-float {
+        position: fixed;
+        bottom: 2rem;
+        right: 2rem;
+        width: 56px;
+        height: 56px;
+        background: #25D366;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: white;
+        font-size: 1.8rem;
+        box-shadow: 0 8px 24px rgba(37,211,102,0.4);
+        z-index: 999;
+        transition: all 0.3s cubic-bezier(0.25,0.8,0.25,1);
+        animation: waPulse 2.5s ease-in-out infinite;
+      }
+      .whatsapp-float:hover { transform: scale(1.1); }
+      @keyframes waPulse {
+        0%, 100% { box-shadow: 0 8px 24px rgba(37,211,102,0.4), 0 0 0 0 rgba(37,211,102,0.3); }
+        50% { box-shadow: 0 8px 24px rgba(37,211,102,0.4), 0 0 0 12px rgba(37,211,102,0); }
+      }
+    </style>
+  </head>
+  <body>
+    <div id="root"></div>
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script type="module" src="/src/main.jsx"></script>
+  </body>
+</html>
