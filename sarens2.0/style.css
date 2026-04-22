@@ -1,27 +1,28 @@
 /* ============================================================
    SARENS — Style System  |  Tema Branco/Pérola + Vermelho
+   VERSÃO CLARA — Hero pérola/branco, sem blocos escuros pesados
    ============================================================ */
 
 @import url('https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@400;600;700;800;900&family=Barlow:wght@300;400;500;600&display=swap');
 
 :root {
   /* ── Paleta principal ── */
-  --red:        #C0392B;        /* vermelho primário (da logo) */
-  --red-light:  #E04535;        /* hover / destaque */
-  --red-dark:   #922B21;        /* pressed / sombra vermelha */
+  --red:        #C0392B;
+  --red-light:  #E04535;
+  --red-dark:   #922B21;
   --red-muted:  rgba(192,57,43,0.08);
 
-  /* ── Neutros ── */
+  /* ── Neutros claros ── */
   --black:      #1A1A1A;
   --dark:       #2C2C2C;
   --dark2:      #3A3A3A;
   --dark3:      #4A4A4A;
-  --gray:       #6B7280;
+  --gray:       #505257;
   --gray-light: #9CA3AF;
   --pearl:      #F5F3F0;        /* fundo geral — pérola quente */
   --light:      #F9F8F6;        /* seções alternadas */
   --white:      #FFFFFF;
-  --border:     #E5E1DC;        /* bordas suaves */
+  --border:     #E5E1DC;
 
   /* ── Tipografia ── */
   --font-display: 'Barlow Condensed', sans-serif;
@@ -32,9 +33,9 @@
   --ease-out: cubic-bezier(0, 0, 0.2, 1);
 
   /* ── Sombras ── */
-  --shadow-sm:  0 2px 8px rgba(0,0,0,0.07);
-  --shadow-md:  0 8px 32px rgba(0,0,0,0.11);
-  --shadow-lg:  0 20px 60px rgba(0,0,0,0.18);
+  --shadow-sm:  0 2px 8px rgba(0,0,0,0.06);
+  --shadow-md:  0 8px 32px rgba(0,0,0,0.09);
+  --shadow-lg:  0 20px 60px rgba(0,0,0,0.13);
   --shadow-red: 0 8px 24px rgba(192,57,43,0.28);
 
   /* ── Raios ── */
@@ -91,6 +92,39 @@ h1,h2,h3,h4,h5 { font-family: var(--font-display); line-height: 1.1; font-weight
 body:hover .cursor-follower { opacity: 1; }
 
 /* ── Loader ─────────────────────────────────── */
+/*
+  INTEGRAÇÃO GLB — LOADER
+  ─────────────────────────────────────────────
+  O loader é o lugar IDEAL para o seu modelo GLB animado
+  das letras SARENS ou de um guindaste em movimento.
+
+  COMO USAR:
+  1. No HTML do loader, adicione um <canvas id="loader-canvas">
+     ou <model-viewer> (web component do Google) dentro de .loader-inner
+
+  2. Exemplo com @google/model-viewer:
+     <script type="module" src="https://ajax.googleapis.com/ajax/libs/model-viewer/3.3.0/model-viewer.min.js"></script>
+     <model-viewer
+       id="loader-model"
+       src="models/sarens-letters.glb"
+       autoplay
+       camera-controls="false"
+       disable-zoom
+       style="width:300px;height:200px;background:transparent;">
+     </model-viewer>
+
+  3. Ou com Three.js (GLTFLoader):
+     import { GLTFLoader } from 'three/addons/loaders/GLTFLoader.js';
+     const loader = new GLTFLoader();
+     loader.load('models/sarens-letters.glb', (gltf) => {
+       scene.add(gltf.scene);
+       // gltf.animations → use AnimationMixer para tocar a animação
+     });
+
+  4. O loader some quando window onload + animação terminar.
+     A barra .loader-progress indica o progresso.
+  ─────────────────────────────────────────────
+*/
 .loader {
   position: fixed; inset: 0;
   background: var(--white);
@@ -153,14 +187,15 @@ body:hover .cursor-follower { opacity: 1; }
   box-shadow: var(--shadow-red);
 }
 
+/* btn-ghost agora usa versão escura — fundo claro */
 .btn-ghost {
   background: transparent;
-  color: var(--white);
-  border: 1.5px solid rgba(255,255,255,0.5);
+  color: var(--dark);
+  border: 1.5px solid rgba(44,44,44,0.35);
 }
 .btn-ghost:hover {
-  background: rgba(255,255,255,0.1);
-  border-color: var(--white);
+  background: rgba(44,44,44,0.06);
+  border-color: var(--dark);
   transform: translateY(-2px);
 }
 
@@ -232,20 +267,24 @@ body:hover .cursor-follower { opacity: 1; }
 .navbar {
   position: fixed; top: 0; left: 0; right: 0;
   z-index: 1000;
-  padding: 1.5rem 0;
-  transition: all 0.4s var(--ease);
-  /* navbar transparente sobre o hero escuro */
-}
-.navbar.scrolled {
-  background: rgba(255,255,255,0.97);
+  padding: 1.2rem 0;
+  background: rgba(255,255,255,0.92);
   backdrop-filter: blur(16px);
-  padding: 1rem 0;
-  box-shadow: 0 2px 20px rgba(0,0,0,0.08);
   border-bottom: 1px solid var(--border);
+  transition: all 0.4s var(--ease);
 }
-/* links brancos no topo (hero escuro), escuros após scroll */
-.navbar .nav-links a { color: rgba(255,255,255,0.8); }
+/* Navbar sempre clara — sem modo escuro */
+.navbar.scrolled {
+  background: rgba(255,255,255,0.98);
+  padding: 0.9rem 0;
+  box-shadow: 0 2px 20px rgba(0,0,0,0.07);
+}
+
+/* Links sempre escuros */
+.navbar .nav-links a { color: var(--gray); }
 .navbar.scrolled .nav-links a { color: var(--gray); }
+.navbar .nav-links a:hover,
+.navbar .nav-links a.active,
 .navbar.scrolled .nav-links a:hover,
 .navbar.scrolled .nav-links a.active { color: var(--dark); }
 
@@ -254,17 +293,20 @@ body:hover .cursor-follower { opacity: 1; }
   align-items: center;
   justify-content: space-between;
 }
+
+/*
+  LOGO — fundo claro:
+  A logo colorida original fica sempre visível.
+  Nenhum filter necessário.
+*/
 .logo-img {
   width: 185px;
   height: 60px;
   object-fit: contain;
-  /* filter para logo branca no topo */
-  filter: brightness(0) invert(1);
+  filter: none; /* logo colorida sempre — sem inversão */
   transition: filter 0.4s var(--ease);
 }
-.navbar.scrolled .logo-img {
-  filter: none; /* logo colorida original após scroll */
-}
+.navbar.scrolled .logo-img { filter: none; }
 
 .nav-links { display: flex; gap: 2rem; }
 .nav-links a {
@@ -285,10 +327,8 @@ body:hover .cursor-follower { opacity: 1; }
   background: var(--red);
   transition: width 0.3s var(--ease);
 }
-.nav-links a:hover::after,
-.nav-links a.active::after { width: 100%; }
+.nav-links a:hover::after, .nav-links a.active::after { width: 100%; }
 
-/* Botão do nav — sempre vermelho */
 .nav-actions .btn-primary {
   margin-top: 0;
   background: var(--red);
@@ -302,12 +342,11 @@ body:hover .cursor-follower { opacity: 1; }
 .mobile-menu-btn {
   display: none;
   background: none; border: none;
-  color: var(--white);
+  color: var(--dark); /* sempre escuro */
   font-size: 1.8rem;
   cursor: pointer;
   transition: color 0.3s;
 }
-.navbar.scrolled .mobile-menu-btn { color: var(--dark); }
 
 /* ── Mobile Menu ─────────────────────────────── */
 .mobile-menu {
@@ -357,8 +396,43 @@ body:hover .cursor-follower { opacity: 1; }
 }
 .mobile-overlay.show { opacity: 1; pointer-events: all; }
 
-/* ── Hero ─────────────────────────────────── */
-/* O hero mantém fundo escuro para impacto visual — é o único bloco dark */
+/* ── Hero CLARO ──────────────────────────────────
+   INTEGRAÇÃO GLB — HERO
+   ─────────────────────────────────────────────
+   O hero agora tem fundo pérola/branco.
+   O modelo GLB (guindaste, braço mecânico, etc.)
+   pode ser colocado na metade direita do hero,
+   substituindo ou complementando a área vazia.
+
+   POSICIONAMENTO SUGERIDO:
+   - Adicione um <div class="hero-3d-canvas"> à direita
+   - Use position: absolute; right: 0; bottom: 0;
+     width: 55%; height: 100%; no canvas/model-viewer
+   - O modelo deve ter fundo transparente (alpha: true no renderer)
+
+   Exemplo com model-viewer:
+   <model-viewer
+     src="models/guindaste.glb"
+     autoplay
+     camera-controls="false"
+     disable-zoom
+     exposure="1.2"
+     shadow-intensity="0.4"
+     class="hero-3d-canvas">
+   </model-viewer>
+
+   CSS para o canvas:
+   .hero-3d-canvas {
+     position: absolute;
+     right: -2%;
+     bottom: 0;
+     width: 52%;
+     height: 100%;
+     pointer-events: none;
+     z-index: 2;
+   }
+   ─────────────────────────────────────────────
+*/
 .hero {
   position: relative;
   min-height: 100vh;
@@ -366,29 +440,33 @@ body:hover .cursor-follower { opacity: 1; }
   align-items: center;
   padding-top: 80px;
   overflow: hidden;
-  background: #111214;
+  background: var(--pearl); /* CLARO — foi #111214 */
 }
+
+/* Fundo geométrico sutil em tons de pérola */
 .hero-parallax {
   position: absolute; inset: -20%;
   background:
-    linear-gradient(135deg, rgba(192,57,43,0.10) 0%, transparent 55%),
+    linear-gradient(135deg, rgba(192,57,43,0.06) 0%, transparent 50%),
     repeating-linear-gradient(
       -45deg,
       transparent,
       transparent 60px,
-      rgba(255,255,255,0.012) 60px,
-      rgba(255,255,255,0.012) 61px
+      rgba(0,0,0,0.015) 60px,
+      rgba(0,0,0,0.015) 61px
     ),
-    #111214;
+    var(--pearl);
   will-change: transform;
 }
+
+/* Linhas decorativas vermelhas — mais sutis no claro */
 .hero-parallax::before {
   content: '';
   position: absolute;
   top: 15%; right: 8%;
   width: 1px; height: 45%;
   background: linear-gradient(to bottom, transparent, var(--red), transparent);
-  opacity: 0.4;
+  opacity: 0.2;
 }
 .hero-parallax::after {
   content: '';
@@ -396,20 +474,24 @@ body:hover .cursor-follower { opacity: 1; }
   top: 25%; right: 12%;
   width: 1px; height: 30%;
   background: linear-gradient(to bottom, transparent, var(--red-light), transparent);
-  opacity: 0.2;
+  opacity: 0.1;
 }
+
+/* Radial suave para profundidade */
 .hero-overlay {
   position: absolute; inset: 0;
-  background: radial-gradient(ellipse at 60% 50%, rgba(192,57,43,0.07) 0%, transparent 70%);
+  background: radial-gradient(ellipse at 65% 50%, rgba(192,57,43,0.05) 0%, transparent 65%);
 }
+
 .hero-noise {
   position: absolute; inset: 0;
-  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");
-  opacity: 0.4;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.025'/%3E%3C/svg%3E");
+  opacity: 0.5;
   pointer-events: none;
 }
 .hero-content { position: relative; z-index: 1; }
 
+/* Eyebrow — versão clara */
 .hero-eyebrow {
   display: inline-flex;
   align-items: center;
@@ -419,30 +501,34 @@ body:hover .cursor-follower { opacity: 1; }
   font-weight: 700;
   letter-spacing: 0.2em;
   text-transform: uppercase;
-  color: var(--red-light);
+  color: var(--red);
   margin-bottom: 1.5rem;
   margin-top: 20px;
-  border: 1px solid rgba(192,57,43,0.35);
+  border: 1px solid rgba(192,57,43,0.25);
   padding: 0.4rem 1rem;
   border-radius: 100px;
-  background: rgba(192,57,43,0.07);
+  background: rgba(192,57,43,0.06);
 }
-.hero-eyebrow .eyebrow-dot { background: var(--red-light); }
+.hero-eyebrow .eyebrow-dot { background: var(--red); }
 
+/* Título — escuro no fundo claro */
 .hero-title {
   font-size: clamp(3.5rem, 8vw, 7rem);
-  color: var(--white);
+  color: var(--dark); /* era var(--white) */
   font-weight: 900;
   letter-spacing: -0.01em;
   line-height: 1.0;
   margin-bottom: 1.5rem;
 }
+/* Outline: borda vermelha com fill transparente — mantém legibilidade */
 .hero-title-outline {
   -webkit-text-stroke: 2px var(--red);
   color: transparent;
 }
+
+/* Subtítulo */
 .hero-subtitle {
-  color: rgba(255,255,255,0.65);
+  color: var(--gray); /* era rgba(255,255,255,0.65) */
   font-size: 1.15rem;
   max-width: 560px;
   margin-bottom: 2.5rem;
@@ -450,6 +536,7 @@ body:hover .cursor-follower { opacity: 1; }
 }
 .hero-buttons { display: flex; gap: 1rem; flex-wrap: wrap; margin-bottom: 10px; }
 
+/* Stats — versão clara com borda suave */
 .hero-stats {
   position: absolute;
   bottom: 3rem;
@@ -457,11 +544,11 @@ body:hover .cursor-follower { opacity: 1; }
   display: flex;
   align-items: center;
   gap: 2rem;
-  background: rgba(255,255,255,0.05);
-  border: 1px solid rgba(255,255,255,0.1);
+  background: var(--white);
+  border: 1px solid var(--border);
   padding: 1.2rem 2rem;
   border-radius: var(--r-md);
-  backdrop-filter: blur(12px);
+  box-shadow: var(--shadow-md);
 }
 .hero-stat { text-align: center; }
 .hero-stat-number {
@@ -469,18 +556,18 @@ body:hover .cursor-follower { opacity: 1; }
   font-family: var(--font-display);
   font-size: 1.6rem;
   font-weight: 900;
-  color: var(--red-light);
+  color: var(--red);
   letter-spacing: -0.02em;
 }
 .hero-stat-label {
   font-size: 0.75rem;
-  color: rgba(255,255,255,0.45);
+  color: var(--gray-light);
   text-transform: uppercase;
   letter-spacing: 0.08em;
 }
 .hero-stat-divider {
   width: 1px; height: 40px;
-  background: rgba(255,255,255,0.12);
+  background: var(--border);
 }
 
 /* ── Strip ─────────────────────────────────── */
@@ -644,7 +731,7 @@ body:hover .cursor-follower { opacity: 1; }
 .svc-gallery-img::after {
   content: '';
   position: absolute; inset: 0;
-  background: radial-gradient(ellipse at center, transparent 45%, rgba(26,26,26,0.15) 100%);
+  background: radial-gradient(ellipse at center, transparent 45%, rgba(26,26,26,0.12) 100%);
   pointer-events: none;
 }
 .svc-gallery-body {
@@ -708,25 +795,60 @@ body:hover .cursor-follower { opacity: 1; }
   background: var(--light);
 }
 
-/* ── Parallax Divider ─────────────────────── */
+/* ── Parallax Divider — CLARO COM ACENTO VERMELHO ──
+   Era completamente escuro (#111214).
+   Agora usa branco com textura e acento vermelho forte.
+
+   INTEGRAÇÃO GLB — PARALLAX DIVIDER
+   ─────────────────────────────────────────────
+   Esta seção é ótima para um GLB decorativo pequeno
+   (ex: hook de guindaste girando, engrenagem, etc.)
+   flutuando à direita ou esquerda do texto.
+
+   .parallax-divider-3d {
+     position: absolute;
+     right: 8%;
+     top: 50%;
+     transform: translateY(-50%);
+     width: 220px;
+     height: 220px;
+     pointer-events: none;
+     opacity: 0.85;
+   }
+   ─────────────────────────────────────────────
+*/
 .parallax-divider {
   position: relative;
   min-height: 420px;
   display: flex;
   align-items: center;
   overflow: hidden;
-  background: #111214;
+  background: var(--white); /* era #111214 */
+  border-top: 1px solid var(--border);
+  border-bottom: 1px solid var(--border);
 }
 .parallax-divider-bg {
   position: absolute; inset: -30%;
-  background: #111214;
+  background: var(--white);
   background-size: cover;
   background-position: center;
   will-change: transform;
 }
+/* Overlay claro com grid e acento vermelho sutil */
 .parallax-divider-overlay {
   position: absolute; inset: 0;
-  background: rgba(17,18,20,0.80);
+  background:
+    repeating-linear-gradient(
+      90deg,
+      rgba(192,57,43,0.025) 0px, rgba(192,57,43,0.025) 1px,
+      transparent 1px, transparent 80px
+    ),
+    repeating-linear-gradient(
+      0deg,
+      rgba(192,57,43,0.025) 0px, rgba(192,57,43,0.025) 1px,
+      transparent 1px, transparent 80px
+    ),
+    radial-gradient(ellipse at 50% 50%, rgba(192,57,43,0.04) 0%, transparent 70%);
 }
 .parallax-divider-content {
   position: relative; z-index: 1;
@@ -735,17 +857,20 @@ body:hover .cursor-follower { opacity: 1; }
   padding: 5rem 2rem;
   letter-spacing: 0.10em;
 }
+/* Título agora escuro — fundo claro */
 .parallax-divider-content h2 {
   font-size: clamp(2rem, 4vw, 3.5rem);
-  color: var(--white);
+  color: var(--dark); /* era var(--white) */
   font-weight: 900;
   margin-bottom: 2.5rem;
 }
 
-/* ── Fleet Preview ─────────────────────────── */
-.fleet-preview { padding: 8rem 0; background: var(--dark); }
-.fleet-preview .section-title { color: var(--white); }
-.fleet-preview .section-sub { color: rgba(255,255,255,0.45); }
+/* ── Fleet Preview — CLARO ─────────────────────
+   Era var(--dark). Agora usa pérola com texto escuro.
+*/
+.fleet-preview { padding: 8rem 0; background: var(--pearl); } /* era var(--dark) */
+.fleet-preview .section-title { color: var(--dark); }        /* era var(--white) */
+.fleet-preview .section-sub { color: var(--gray); }           /* era rgba branco */
 .fleet-grid {
   display: grid;
   grid-template-columns: 1.5fr 1fr;
@@ -766,13 +891,14 @@ body:hover .cursor-follower { opacity: 1; }
   background-position: center;
   transition: transform 0.6s var(--ease);
 }
+/* Gradients das cards de frota — mantidos escuros pois têm imagens sobre eles */
 .fleet-bg-1 { background: linear-gradient(135deg, #1a2d45, #0a1828); }
 .fleet-bg-2 { background: linear-gradient(135deg, #1e2830, #0e1820); }
 .fleet-bg-3 { background: linear-gradient(135deg, #2a2010, #1a1408); }
 .fleet-card:hover .fleet-card-bg { transform: scale(1.05); }
 .fleet-card-overlay {
   position: absolute; inset: 0;
-  background: linear-gradient(to top, rgba(0,0,0,0.8) 0%, transparent 60%);
+  background: linear-gradient(to top, rgba(0,0,0,0.75) 0%, transparent 55%);
 }
 .fleet-card-content {
   position: absolute;
@@ -886,7 +1012,7 @@ body:hover .cursor-follower { opacity: 1; }
 }
 .cta-phone strong { font-family: var(--font-display); font-size: 1.15rem; color: var(--dark); }
 
-/* ── Footer ─────────────────────────────────── */
+/* ── Footer — mantém escuro (padrão de mercado) ── */
 .footer {
   background: var(--dark);
   padding: 5rem 0 0;
@@ -952,7 +1078,10 @@ body:hover .cursor-follower { opacity: 1; }
 .brand-s { color: var(--red); font-weight: 700; }
 .brand-arens { color: var(--white); font-weight: 700; }
 
-/* ── Page Hero ─────────────────────────────── */
+/* ── Page Hero — CLARO ─────────────────────────
+   Era completamente escuro.
+   Agora usa pérola com overlay suave.
+*/
 .page-hero {
   position: relative;
   min-height: 50vh;
@@ -960,7 +1089,7 @@ body:hover .cursor-follower { opacity: 1; }
   align-items: flex-end;
   padding-bottom: 5rem;
   padding-top: 120px;
-  background: #111214;
+  background: var(--pearl); /* era #111214 */
 }
 .page-hero-sm { min-height: 42vh; }
 .page-hero-bg {
@@ -968,40 +1097,46 @@ body:hover .cursor-follower { opacity: 1; }
   background-size: cover;
   background-position: center;
 }
+
+/* Padrões geométricos claros */
 .page-hero-empresa {
   background:
-    repeating-linear-gradient(-45deg, rgba(192,57,43,0.04) 0px, rgba(192,57,43,0.04) 1px, transparent 1px, transparent 50px),
-    linear-gradient(135deg, #111214, #1c1e22);
+    repeating-linear-gradient(-45deg, rgba(192,57,43,0.03) 0px, rgba(192,57,43,0.03) 1px, transparent 1px, transparent 50px),
+    linear-gradient(135deg, var(--pearl), #ede8e2);
 }
 .page-hero-servicos {
   background:
-    repeating-linear-gradient(90deg, rgba(192,57,43,0.04) 0px, rgba(192,57,43,0.04) 1px, transparent 1px, transparent 60px),
-    linear-gradient(135deg, #111214, #1a1c20);
+    repeating-linear-gradient(90deg, rgba(192,57,43,0.03) 0px, rgba(192,57,43,0.03) 1px, transparent 1px, transparent 60px),
+    linear-gradient(135deg, var(--pearl), #eae5e0);
 }
 .page-hero-frota {
   background:
-    repeating-linear-gradient(45deg, rgba(192,57,43,0.04) 0px, rgba(192,57,43,0.04) 1px, transparent 1px, transparent 60px),
-    linear-gradient(135deg, #111214, #181a1e);
+    repeating-linear-gradient(45deg, rgba(192,57,43,0.03) 0px, rgba(192,57,43,0.03) 1px, transparent 1px, transparent 60px),
+    linear-gradient(135deg, var(--pearl), #e8e4df);
 }
 .page-hero-contato {
   background:
-    radial-gradient(ellipse at 50% 100%, rgba(192,57,43,0.12) 0%, transparent 70%),
-    #111214;
+    radial-gradient(ellipse at 50% 100%, rgba(192,57,43,0.08) 0%, transparent 70%),
+    var(--pearl);
 }
+
+/* Overlay levíssimo para legibilidade quando há foto de fundo */
 .page-hero-overlay {
   position: absolute; inset: 0;
-  background: linear-gradient(to top, rgba(17,18,20,0.75) 0%, rgba(17,18,20,0.3) 100%);
+  background: linear-gradient(to top, rgba(245,243,240,0.5) 0%, transparent 60%);
 }
+
+/* Textos do page-hero — escuros */
 .page-hero-content {
   position: relative; z-index: 1;
-  color: var(--white);
+  color: var(--dark);
 }
 .page-hero-content h1 {
   font-size: clamp(3rem, 6vw, 5rem);
-  color: var(--white);
+  color: var(--dark); /* era var(--white) */
   margin-bottom: 0.75rem;
 }
-.page-hero-content p { color: rgba(255,255,255,0.6); font-size: 1.15rem; }
+.page-hero-content p { color: var(--gray); font-size: 1.15rem; } /* era rgba branco */
 
 /* ── Breadcrumb ─────────────────────────────── */
 .breadcrumb-bar {
@@ -1020,7 +1155,7 @@ body:hover .cursor-follower { opacity: 1; }
 .inner-section { padding: 6rem 0; }
 .inner-section-sm { padding: 4rem 0 0; }
 
-/* ── Stats ─────────────────────────────────── */
+/* ── Stats — mantém vermelho (acento forte) ── */
 .stats-section {
   background: var(--red);
   padding: 4rem 0;
@@ -1197,13 +1332,13 @@ body:hover .cursor-follower { opacity: 1; }
 .service-detail-img::after {
   content: '';
   position: absolute; inset: 0;
-  background: radial-gradient(circle at 50% 50%, rgba(192,57,43,0.06) 0%, transparent 70%);
+  background: radial-gradient(circle at 50% 50%, rgba(192,57,43,0.04) 0%, transparent 70%);
 }
 .service-detail-number {
   font-family: var(--font-display);
   font-size: 5rem;
   font-weight: 900;
-  color: rgba(192,57,43,0.18);
+  color: rgba(192,57,43,0.15);
   line-height: 1;
   margin-bottom: 0.5rem;
   letter-spacing: -0.02em;
@@ -1219,9 +1354,11 @@ body:hover .cursor-follower { opacity: 1; }
 }
 .service-features li i { color: var(--red); font-size: 1.1rem; flex-shrink: 0; }
 
-/* ── Process Steps ─────────────────────── */
-.process-section { padding: 8rem 0; background: var(--dark); }
-.process-section .section-title { color: var(--white); }
+/* ── Process Steps — CLARO ─────────────────
+   Era var(--dark). Agora pérola com cards brancos.
+*/
+.process-section { padding: 8rem 0; background: var(--pearl); } /* era var(--dark) */
+.process-section .section-title { color: var(--dark); }         /* era var(--white) */
 .process-steps {
   display: flex;
   align-items: stretch;
@@ -1230,8 +1367,8 @@ body:hover .cursor-follower { opacity: 1; }
 }
 .process-step {
   flex: 1;
-  background: rgba(255,255,255,0.04);
-  border: 1px solid rgba(255,255,255,0.08);
+  background: var(--white); /* era rgba branco 4% */
+  border: 1px solid var(--border); /* era rgba branco 8% */
   padding: 2.5rem;
   border-radius: var(--r-md);
   transition:
@@ -1258,17 +1395,17 @@ body:hover .cursor-follower { opacity: 1; }
   font-family: var(--font-display);
   font-size: 2.5rem;
   font-weight: 900;
-  color: var(--red-light);
-  opacity: 0.5;
+  color: var(--red);
+  opacity: 0.4;
   letter-spacing: -0.04em;
   margin-bottom: 0.75rem;
 }
-.process-step h4 { color: var(--white); font-size: 1.1rem; margin-bottom: 0.75rem; }
-.process-step p { color: rgba(255,255,255,0.45); font-size: 0.9rem; }
+.process-step h4 { color: var(--dark); font-size: 1.1rem; margin-bottom: 0.75rem; } /* era white */
+.process-step p { color: var(--gray); font-size: 0.9rem; }                           /* era rgba branco */
 .process-arrow {
   display: flex;
   align-items: center;
-  color: rgba(255,255,255,0.2);
+  color: var(--border);
   font-size: 1.5rem;
   padding: 0 0.5rem;
   flex-shrink: 0;
@@ -1490,11 +1627,12 @@ select.form-control { appearance: none; cursor: pointer; }
 .map-overlay-text p { color: var(--gray); margin-bottom: 1.5rem; }
 
 /* ── Cert Badges ─────────────────────────── */
+/* Era var(--dark2) — agora usa pearl com bordas visíveis */
 .empresa-parallax {
   background:
     repeating-linear-gradient(90deg, rgba(192,57,43,0.03) 0px, rgba(192,57,43,0.03) 1px, transparent 1px, transparent 80px),
     repeating-linear-gradient(0deg, rgba(192,57,43,0.03) 0px, rgba(192,57,43,0.03) 1px, transparent 1px, transparent 80px),
-    var(--dark2);
+    var(--pearl); /* era var(--dark2) */
 }
 .cert-badges {
   display: flex;
@@ -1507,9 +1645,9 @@ select.form-control { appearance: none; cursor: pointer; }
   display: flex;
   align-items: center;
   gap: 0.4rem;
-  background: rgba(192,57,43,0.10);
-  border: 1px solid rgba(192,57,43,0.3);
-  color: var(--red-light);
+  background: rgba(192,57,43,0.08);
+  border: 1px solid rgba(192,57,43,0.25);
+  color: var(--red-dark);
   font-family: var(--font-display);
   font-weight: 700;
   font-size: 0.9rem;
@@ -1518,7 +1656,7 @@ select.form-control { appearance: none; cursor: pointer; }
   border-radius: 100px;
 }
 
-/* ── Services Preview (cards) ─────────────────── */
+/* ── Services Preview ─────────────────────────── */
 .services-preview { padding: 8rem 0; background: var(--light); }
 .services-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 1.5rem; }
 .service-card {
@@ -1590,7 +1728,7 @@ select.form-control { appearance: none; cursor: pointer; }
   width: 3px;
   height: 24px;
   border-radius: 2px;
-  background: rgba(0,0,0,0.12);
+  background: rgba(0,0,0,0.1);
   transition: height 0.3s var(--ease), background 0.3s;
 }
 .svc-dot-side.active {
@@ -1598,7 +1736,7 @@ select.form-control { appearance: none; cursor: pointer; }
   background: var(--red);
 }
 
-/* ── Image classes (mantidas exatamente iguais) ── */
+/* ── Image classes (inalteradas) ── */
 .img-guindastes   { background-image: url('img/guindastes-img2.jpeg');       background-size: cover; background-position: center 60%; }
 .img-movimentacao { background-image: url('img/movimentacao-industrial.png'); background-size: cover; background-position: center 55%; }
 .img-munck        { background-image: url('img/caminhao-munck.jpg');          background-size: cover; background-position: center; }
@@ -1631,6 +1769,7 @@ select.form-control { appearance: none; cursor: pointer; }
 .img-empilhadeira     { background-image: url('img/escavadeiras-logo.jpg');       background-size: cover; background-position: center; }
 .img-pa-carregadeira  { background-image: url('img/escavadeiras-logo.jpg');       background-size: cover; background-position: right center; }
 
+/* Overlays para imagens com foto de fundo escuro — mantidos */
 .img-overlay::after, .img-overlay-sm::after, .img-overlay-lg::after {
   content: ''; position: absolute; inset: 0; pointer-events: none; z-index: 1;
 }
@@ -1638,6 +1777,69 @@ select.form-control { appearance: none; cursor: pointer; }
 .img-overlay::after    { background: linear-gradient(to top, rgba(17,18,20,.70) 0%, rgba(17,18,20,.15) 100%); }
 .img-overlay-lg::after { background: linear-gradient(to top, rgba(17,18,20,.85) 0%, rgba(17,18,20,.22) 100%); }
 .img-overlay > *, .img-overlay-sm > *, .img-overlay-lg > * { position: relative; z-index: 2; }
+
+/* ══════════════════════════════════════════════
+   GLB INTEGRATION — CLASSES PRONTAS PARA USO
+   ══════════════════════════════════════════════
+
+   Basta adicionar no HTML e apontar o src do model-viewer.
+
+   HERO — modelo grande à direita:
+   <model-viewer class="glb-hero" src="models/guindaste.glb" autoplay camera-controls="false" disable-zoom>
+   </model-viewer>
+
+   SEÇÃO — modelo decorativo flutuante:
+   <model-viewer class="glb-section-float" src="models/hook.glb" autoplay camera-controls="false" disable-zoom>
+   </model-viewer>
+
+   LOADER — tela de carregamento:
+   <model-viewer class="glb-loader" src="models/sarens-letters.glb" autoplay camera-controls="false" disable-zoom>
+   </model-viewer>
+*/
+
+/* Modelo do hero — metade direita, alto impacto */
+.glb-hero {
+  position: absolute;
+  right: -2%;
+  bottom: 0;
+  width: 52%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 2;
+  --progress-bar-height: 0px;
+  background: transparent;
+}
+
+/* Modelo decorativo em seções (parallax-divider, about, etc.) */
+.glb-section-float {
+  position: absolute;
+  right: 6%;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 200px;
+  height: 200px;
+  pointer-events: none;
+  opacity: 0.9;
+  z-index: 2;
+  --progress-bar-height: 0px;
+  background: transparent;
+  animation: glbFloat 4s ease-in-out infinite;
+}
+
+/* Modelo do loader — centralizado */
+.glb-loader {
+  width: 260px;
+  height: 180px;
+  margin: 0 auto 1.5rem;
+  --progress-bar-height: 0px;
+  background: transparent;
+}
+
+/* Animação de flutuação suave */
+@keyframes glbFloat {
+  0%, 100% { transform: translateY(-50%) translateY(0px); }
+  50%       { transform: translateY(-50%) translateY(-12px); }
+}
 
 /* ── Responsive ─────────────────────────────── */
 @media (max-width: 1024px) {
@@ -1667,6 +1869,8 @@ select.form-control { appearance: none; cursor: pointer; }
   .svc-gallery-card { grid-template-columns: 1fr 1fr; max-width: 820px; height: min(380px, 62vh); }
   .svc-gallery-body { padding: 2rem 1.75rem; }
   .svc-gallery-item { padding: 2rem 3rem; }
+  .glb-hero { display: none; } /* oculta no tablet para não atrapalhar layout */
+  .glb-section-float { width: 140px; height: 140px; right: 2%; }
 }
 
 @media (max-width: 768px) {
@@ -1691,4 +1895,6 @@ select.form-control { appearance: none; cursor: pointer; }
   .svc-gallery-body { padding: 1.5rem 1.25rem; }
   .svc-dots-side { display: none; }
   .svc-gallery-cta { padding: 3rem 0 4rem; }
+  .glb-hero, .glb-section-float { display: none; }
+  .glb-loader { width: 180px; height: 120px; }
 }
