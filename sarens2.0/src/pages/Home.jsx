@@ -7,12 +7,12 @@ export default function Home() {
   useEffect(() => {
     const el = document.getElementById('heroParallax')
     if (!el) return
-    const onScroll = () => { el.style.transform = `translateY(${window.scrollY * 0.35}px)` }
+    const onScroll = () => { el.style.transform = `translateY(${window.scrollY * 0.3}px)` }
     window.addEventListener('scroll', onScroll, { passive: true })
     return () => window.removeEventListener('scroll', onScroll)
   }, [])
 
-  // Parallax divider 
+  // Parallax divider
   useEffect(() => {
     const bgs = document.querySelectorAll('.parallax-divider-bg')
     if (!bgs.length) return
@@ -50,9 +50,24 @@ export default function Home() {
     <>
       {/* Hero */}
       <section id="home" className="hero">
+        {/* Foto de fundo com parallax */}
         <div className="hero-parallax" id="heroParallax"></div>
+
+        {/* Overlay direcional */}
         <div className="hero-overlay"></div>
+
+        {/* Grain de filme */}
         <div className="hero-noise"></div>
+
+        {/* Linha vertical decorativa */}
+        <div className="hero-redline"></div>
+
+        {/* Cantos decorativos */}
+        <div className="hero-corner hero-corner--tl"></div>
+        <div className="hero-corner hero-corner--tr"></div>
+        <div className="hero-corner hero-corner--bl"></div>
+        <div className="hero-corner hero-corner--br"></div>
+
         <div className="container hero-content">
           <div className="hero-eyebrow" data-aos="fade-down" data-aos-duration="800">
             <span className="eyebrow-dot"></span>
@@ -75,6 +90,7 @@ export default function Home() {
             </Link>
           </div>
         </div>
+
         <div className="hero-stats" data-aos="fade-up" data-aos-delay="500">
           <div className="hero-stat">
             <span className="hero-stat-number">500t</span>
@@ -116,7 +132,7 @@ export default function Home() {
           <div className="about-visual" data-aos="fade-right">
             <div className="about-img-wrap">
               <div className="about-img-main">
-                <img src="/img/sarens-logo-original.png" alt="Sarens Logo" />
+                <img src="/img/sarenslogo_maior.png" alt="Sarens Logo" />
               </div>
               <div className="about-img-accent"></div>
             </div>
@@ -266,4 +282,4 @@ export default function Home() {
       </section>
     </>
   )
-} 
+}

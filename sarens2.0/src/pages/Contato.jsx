@@ -185,11 +185,11 @@ export default function Contato() {
             <iframe
               src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3681.334057639455!2d-43.274579423773195!3d-22.678604329688433!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x9979cebeb3a81b%3A0x42c39d6182df37be!2sAv.%20Primavera%2C%20156%20-%20Jardim%20Primavera%2C%20Duque%20de%20Caxias%20-%20RJ%2C%2025215-255!5e0!3m2!1spt-BR!2sbr!4v1709000000000!5m2!1spt-BR!2sbr"
               width="100%" height="450"
-              style={{ border: 0, filter: 'grayscale(1) invert(0.92) contrast(1.2) sepia(0.1)' }}
+              style={{ border: 0, filter: 'grayscale(1) invert(0.20) contrast(1.5) sepia(0.1)' }}
               allowFullScreen loading="lazy" referrerPolicy="no-referrer-when-downgrade"
               title="Localização SARENS"
             ></iframe>
-            <div style={{ position: 'absolute', bottom: 20, left: 20, maxWidth: 560, background: 'rgba(5,5,5,0.9)', padding: '1.5rem 2rem', borderRadius: 'var(--r-sm)', borderLeft: '4px solid var(--red)', zIndex: 2, textAlign: 'center' }}>
+            <div style={{ position: 'absolute', bottom: 20, left: 20, maxWidth: 560, background: 'rgba(0, 0, 0, 0.64)', padding: '1.5rem 2rem', borderRadius: 'var(--r-sm)', borderLeft: '4px solid var(--red)', zIndex: 2, textAlign: 'center' }}>
               <i className="ph ph-map-pin-area" style={{ color: 'var(--red)', fontSize: '2rem', marginBottom: '0.75rem', display: 'block' }}></i>
               <p style={{ color: '#fff', marginBottom: '1.25rem', fontSize: '0.95rem', lineHeight: 1.6 }}>
                 Av. Primavera, 156 - Jardim Primavera, Duque de Caxias - RJ, 25215-255
